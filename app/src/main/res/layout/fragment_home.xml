@@ -1,0 +1,20 @@
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context="edu.cnm.deepdive.fu.medicalcannabistrackernm.Home">
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="21dp"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:lineSpacingExtra="8sp"
+    android:text="@string/New_Mexico_MCP"
+    android:textAlignment="center"
+    android:textColor="@android:color/black"
+    android:textSize="30sp"/>
+
+</RelativeLayout>

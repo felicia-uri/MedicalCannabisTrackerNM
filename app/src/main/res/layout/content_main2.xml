@@ -9,4 +9,10 @@
   tools:context="edu.cnm.deepdive.fu.medicalcannabistrackernm.Main2Activity"
   tools:showIn="@layout/app_bar_main2">
 
+
+  <android.support.v7.widget.ContentFrameLayout
+    android:id="@+id/fragment_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+  </android.support.v7.widget.ContentFrameLayout>
 </android.support.constraint.ConstraintLayout>
