@@ -1,8 +1,10 @@
 package edu.cnm.deepdive.fu.medicalcannabistrackernm;
 
+import android.app.DatePickerDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -12,14 +14,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import edu.cnm.deepdive.fu.medicalcannabistrackernm.PatientIDCard.OnFragmentInteractionListener;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TextView;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.DatePickerFragment;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.PatientIDCard;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.PatientIDCard.OnFragmentInteractionListener;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.Home;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Main2Activity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener,
-    Home.OnFragmentInteractionListener {
+    Home.OnFragmentInteractionListener, DatePickerDialog.OnDateSetListener {
 
   FragmentManager manager = getSupportFragmentManager();
   Fragment fragment = manager.findFragmentById(R.id.fragment_container);
+
 
 
   @Override
@@ -52,6 +67,8 @@ public class Main2Activity extends AppCompatActivity
 
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
+
+
   }
 
   @Override
@@ -109,4 +126,24 @@ public class Main2Activity extends AppCompatActivity
   public void onFragmentInteraction(Uri uri) {
 
   }
+
+  public void onDateSet(DatePicker view, int year, int month, int day) {
+    Calendar cal = new GregorianCalendar(year, month, day);
+    setDate(cal);
+  }
+
+  private void setDate(final Calendar calendar) {
+    final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+    ((TextView) findViewById(R.id.showDate)).setText(dateFormat.format(calendar.getTime()));
+
+  }
+
+  public void datePicker(View view) {
+    DatePickerFragment fragment = new DatePickerFragment();
+    fragment.show(getFragmentManager(), "datePicker");
+  }
+
+
+
+
 }

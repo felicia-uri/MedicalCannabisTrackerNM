@@ -2,7 +2,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context="edu.cnm.deepdive.fu.medicalcannabistrackernm.PatientIDCard">
+  tools:context="edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.PatientIDCard">
 
   <TextView
     android:id="@+id/textView2"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.99"
         android:paddingLeft="15dp"
-        android:text="Name:"
+        android:text="Card ID Code:"
         android:textColor="@android:color/black"
         android:textSize="17sp"/>
       <EditText
@@ -40,11 +40,10 @@
         android:layout_width="187dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="First Name"
-        android:inputType="textPersonName"
+        android:hint="ID Code #"
+        android:inputType="date"
         android:textAlignment="center"
-        android:textSize="17sp"
-        />
+        android:textSize="17sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -53,21 +52,38 @@
       android:orientation="horizontal"
       android:weightSum="1">
       <TextView
-        android:id="@+id/textView_issueDate"
-        android:layout_width="174dp"
+        android:id="@+id/dateView"
+        android:layout_width="194dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.96"
         android:paddingLeft="15dp"
         android:text="Issue Date:"
         android:textColor="@android:color/black"
-        android:textSize="17sp"/>
+        android:textSize="17sp"
+        android:layout_weight="1"/>
+      <!--<EditText-->
+      <!--android:id="@+id/editText_issueDate"-->
+      <!--style="@android:style/Widget.DatePicker"-->
+      <!--android:layout_width="187dp"-->
+      <!--android:layout_height="wrap_content"-->
+      <!--android:ems="10"-->
+      <!--android:hint="Issue Date"-->
+      <!--android:inputType="date"-->
+      <!--android:textAlignment="center"-->
+      <!--android:textSize="17sp"/>-->
+
+      <!--<Button-->
+      <!--android:id="@+id/btnDate"-->
+      <!--android:layout_width="wrap_content"-->
+      <!--android:layout_height="35dp"-->
+      <!--android:onClick="datePicker"-->
+      <!--android:text="@string/pick_date"/>-->
       <EditText
-        android:id="@+id/editText_issueDate"
+        android:id="@+id/showDate"
         android:layout_width="187dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Issue Date"
-        android:inputType="date"
+        android:hint="Date Issued"
+        android:onClick="datePicker"
         android:textAlignment="center"
         android:textSize="17sp"/>
     </LinearLayout>
@@ -96,55 +112,55 @@
         android:textSize="17sp"/>
     </LinearLayout>
 
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="1">
-    <TextView
-      android:id="@+id/textView_unitsStartDate"
-      android:layout_width="wrap_content"
+    <LinearLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_weight="1.01"
-      android:paddingLeft="15dp"
-      android:text="Units Start Date:"
-      android:textColor="@android:color/black"
-      android:textSize="17sp"/>
-    <EditText
-      android:id="@+id/editText_unitsStartDate"
-      android:layout_width="187dp"
-      android:layout_height="wrap_content"
-      android:ems="10"
-      android:hint="Units Start Date"
-      android:inputType="date"
-      android:textAlignment="center"
-      android:textSize="17sp"/>
-  </LinearLayout>
+      android:orientation="horizontal"
+      android:weightSum="1">
+      <TextView
+        android:id="@+id/textView_unitsStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.01"
+        android:paddingLeft="15dp"
+        android:text="Units Start Date:"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"/>
+      <EditText
+        android:id="@+id/editText_unitsStartDate"
+        android:layout_width="187dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Units Start Date"
+        android:inputType="date"
+        android:textAlignment="center"
+        android:textSize="17sp"/>
+    </LinearLayout>
 
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="1">
-    <TextView
-      android:id="@+id/textView_unitsRenewalDate"
-      android:layout_width="wrap_content"
+    <LinearLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_weight="1.01"
-      android:paddingLeft="15dp"
-      android:text="Units Renewal Date:"
-      android:textColor="@android:color/black"
-      android:textSize="17sp"/>
-    <EditText
-      android:id="@+id/editText_unitsRenewalDate"
-      android:layout_width="187dp"
-      android:layout_height="wrap_content"
-      android:ems="10"
-      android:hint="Units Renewal Date"
-      android:inputType="date"
-      android:textAlignment="center"
-      android:textSize="17sp"/>
-  </LinearLayout>
+      android:orientation="horizontal"
+      android:weightSum="1">
+      <TextView
+        android:id="@+id/textView_unitsRenewalDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.01"
+        android:paddingLeft="15dp"
+        android:text="Units Renewal Date:"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"/>
+      <EditText
+        android:id="@+id/editText_unitsRenewalDate"
+        android:layout_width="187dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Units Renewal Date"
+        android:inputType="date"
+        android:textAlignment="center"
+        android:textSize="17sp"/>
+    </LinearLayout>
 
 
   </LinearLayout>

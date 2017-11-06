@@ -3,6 +3,7 @@
 
   <string name="navigation_drawer_open">Open navigation drawer</string>
   <string name="navigation_drawer_close">Close navigation drawer</string>
+  <string name="nav_home"></string>
 
   <string name="action_settings">Settings</string>
   <string name="title_activity_main2">NM Medical Cannabis Program</string>
@@ -12,4 +13,11 @@
 
   <!-- TODO: Remove or change this placeholder text -->
   <string name="patient_id_card">Patient Identification Card</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="pick_date">Pick Date</string>
+  <string name="init_text">Date Picker Example</string>
+
+
+
 </resources>

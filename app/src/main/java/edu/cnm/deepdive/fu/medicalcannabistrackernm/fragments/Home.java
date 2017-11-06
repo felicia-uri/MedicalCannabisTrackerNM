@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.fu.medicalcannabistrackernm;
+package edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.R;
 
 
 /**
