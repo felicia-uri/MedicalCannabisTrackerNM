@@ -27,6 +27,8 @@
   <string name="exp_date">Expiration Date</string>
   <string name="units_start_date">Units Start Date</string>
   <string name="units_renewal_date">Units Renewal Date</string>
+  <string name="about">About</string>
+  <string name="regulations_url">https://nmhealth.org/publication/view/regulation/126/</string>
 
 
 </resources>

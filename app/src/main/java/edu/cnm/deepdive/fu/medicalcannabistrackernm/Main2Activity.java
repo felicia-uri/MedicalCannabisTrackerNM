@@ -2,6 +2,9 @@ package edu.cnm.deepdive.fu.medicalcannabistrackernm;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,7 +15,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,18 +22,18 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import edu.cnm.deepdive.fu.medicalcannabistrackernm.database.DBHandler;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.database.DBHelper;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.database.PatientCardID;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.DatePickerFragment;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.DisplayMessageActivity;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.IDCard;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.NmRegulations;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.PatientIDCard;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.PatientIDCard.OnFragmentInteractionListener;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.Home;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public class Main2Activity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener,
@@ -39,12 +41,11 @@ public class Main2Activity extends AppCompatActivity
 
   public static final String EXTRA_MESSAGE ="edu.cnm.deepdive.fu.medicalcannabistrackernm.MESSAGE";
 
+
   FragmentManager manager = getSupportFragmentManager();
   Fragment fragment = manager.findFragmentById(R.id.fragment_container);
-  DBHandler db;
 
-
-
+  SQLiteDatabase database;
 
 
   @Override
@@ -78,9 +79,20 @@ public class Main2Activity extends AppCompatActivity
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
-    db = new DBHandler(this);
+    SQLiteOpenHelper dbHelper = new DBHelper(this);
+    database = dbHelper.getWritableDatabase();
+    Toast.makeText(this, "Database acquired!", Toast.LENGTH_SHORT).show();
 
+  }
 
+  @Override
+  public void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+      Toast.makeText(this, "Your orientation is portrait", Toast.LENGTH_SHORT).show();
+    } else {
+      Toast.makeText(this, "Your orientation is landscape", Toast.LENGTH_SHORT).show();
+    }
   }
 
   @Override
@@ -107,9 +119,11 @@ public class Main2Activity extends AppCompatActivity
     // as you specify a parent activity in AndroidManifest.xml.
     int id = item.getItemId();
 
-    //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
-      return true;
+    switch (id) {
+      case R.id.action_settings:
+        return true;
+      case R.id.action_about:
+        return true;
     }
 
     return super.onOptionsItemSelected(item);
@@ -121,26 +135,31 @@ public class Main2Activity extends AppCompatActivity
     // Handle navigation view item clicks here.
     int id = item.getItemId();
 
-    if (id == R.id.nav_home) {
-      Home home  = new Home();
-      manager.beginTransaction().replace(R.id.fragment_container, home).commit();
-    } else if (id == R.id.nav_patient_id_card) {
-      PatientIDCard patientIDCard = new PatientIDCard();
-      manager.beginTransaction().replace(R.id.fragment_container, patientIDCard).commit();
-    } else if (id == R.id.nav_idcard) {
-      IDCard idCard = new IDCard();
-      manager.beginTransaction().replace(R.id.fragment_container, idCard).commit();
+    switch (id) {
+      case R.id.nav_home:
+        Home home = new Home();
+        manager.beginTransaction().replace(R.id.fragment_container, home).commit();
+        break;
+      case R.id.nav_patient_id_card:
+        PatientIDCard patientIDCard = new PatientIDCard();
+        manager.beginTransaction().replace(R.id.fragment_container, patientIDCard).commit();
+        break;
+      case R.id.nav_idcard:
+        IDCard idCard = new IDCard();
+        manager.beginTransaction().replace(R.id.fragment_container, idCard).commit();
+        break;
+      case R.id.nav_regulations:
+        NmRegulations nmRegulations = new NmRegulations();
+        manager.beginTransaction().replace(R.id.fragment_container, nmRegulations).commit();
+        break;
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+
     }
 
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    drawer.closeDrawer(GravityCompat.START);
-    return true;
-  }
-
-  @Override
-  public void onFragmentInteraction(Uri uri) {
-
-  }
 
   public void onDateSet(DatePicker view, int year, int month, int day) {
     Calendar cal = new GregorianCalendar(year, month, day);
@@ -171,8 +190,12 @@ public class Main2Activity extends AppCompatActivity
     String issueDate = ((TextView) findViewById(R.id.showDate)).getText().toString();
     PatientCardID patientCardID = new PatientCardID();
     patientCardID.setIssueDate(issueDate);
-    db.addPatientCardID(patientCardID);
+//    database.addPatientCardID(patientCardID);
   }
 
 
+  @Override
+  public void onFragmentInteraction(Uri uri) {
+
+  }
 }
