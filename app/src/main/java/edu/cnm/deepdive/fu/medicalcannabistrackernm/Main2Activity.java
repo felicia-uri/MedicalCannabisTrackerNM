@@ -1,10 +1,10 @@
 package edu.cnm.deepdive.fu.medicalcannabistrackernm;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -12,28 +12,38 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.database.DBHandler;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.database.PatientCardID;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.DatePickerFragment;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.DisplayMessageActivity;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.IDCard;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.PatientIDCard;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.PatientIDCard.OnFragmentInteractionListener;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.Home;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class Main2Activity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener,
-    Home.OnFragmentInteractionListener, DatePickerDialog.OnDateSetListener {
+    Home.OnFragmentInteractionListener, IDCard.OnFragmentInteractionListener, DatePickerDialog.OnDateSetListener {
+
+  public static final String EXTRA_MESSAGE ="edu.cnm.deepdive.fu.medicalcannabistrackernm.MESSAGE";
 
   FragmentManager manager = getSupportFragmentManager();
   Fragment fragment = manager.findFragmentById(R.id.fragment_container);
+  DBHandler db;
+
+
 
 
 
@@ -67,6 +77,8 @@ public class Main2Activity extends AppCompatActivity
 
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
+
+    db = new DBHandler(this);
 
 
   }
@@ -115,6 +127,9 @@ public class Main2Activity extends AppCompatActivity
     } else if (id == R.id.nav_patient_id_card) {
       PatientIDCard patientIDCard = new PatientIDCard();
       manager.beginTransaction().replace(R.id.fragment_container, patientIDCard).commit();
+    } else if (id == R.id.nav_idcard) {
+      IDCard idCard = new IDCard();
+      manager.beginTransaction().replace(R.id.fragment_container, idCard).commit();
     }
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -143,7 +158,21 @@ public class Main2Activity extends AppCompatActivity
     fragment.show(getFragmentManager(), "datePicker");
   }
 
+  public void sendMessage(View view) {
+    Intent intent = new Intent(this, DisplayMessageActivity.class);
+    EditText editText = (EditText) findViewById(R.id.editText);
+    String message = editText.getText().toString();
+    intent.putExtra(EXTRA_MESSAGE, message);
+    startActivity(intent);
 
+  }
+
+  public void save(View view) {
+    String issueDate = ((TextView) findViewById(R.id.showDate)).getText().toString();
+    PatientCardID patientCardID = new PatientCardID();
+    patientCardID.setIssueDate(issueDate);
+    db.addPatientCardID(patientCardID);
+  }
 
 
 }

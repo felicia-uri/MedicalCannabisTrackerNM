@@ -18,6 +18,15 @@
   <string name="pick_date">Pick Date</string>
   <string name="init_text">Date Picker Example</string>
 
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="edit_message">Enter a message</string>
+  <string name="button_send">Send</string>
+  <string name="card_id_code">Card ID Code</string>
+  <string name="issue_date">Issued Date</string>
+  <string name="exp_date">Expiration Date</string>
+  <string name="units_start_date">Units Start Date</string>
+  <string name="units_renewal_date">Units Renewal Date</string>
 
 
 </resources>
