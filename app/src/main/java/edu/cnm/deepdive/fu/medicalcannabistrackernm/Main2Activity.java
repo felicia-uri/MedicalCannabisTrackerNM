@@ -23,7 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.database.DBHelper;
-import edu.cnm.deepdive.fu.medicalcannabistrackernm.database.PatientCardID;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.database.DataCardId;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.DatePickerFragment;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.DisplayMessageActivity;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments.IDCard;
@@ -46,6 +46,7 @@ public class Main2Activity extends AppCompatActivity
   Fragment fragment = manager.findFragmentById(R.id.fragment_container);
 
   SQLiteDatabase database;
+  //TextView tvOut;
 
 
   @Override
@@ -82,6 +83,13 @@ public class Main2Activity extends AppCompatActivity
     SQLiteOpenHelper dbHelper = new DBHelper(this);
     database = dbHelper.getWritableDatabase();
     Toast.makeText(this, "Database acquired!", Toast.LENGTH_SHORT).show();
+
+//    DataCardId dataCardId = new DataCardId(null, "card ID", "date",
+//        "date", "date",
+//        "date");
+//
+//    tvOut = (TextView) findViewById(R.id.data_out);
+//    tvOut.setText(dataCardId.toString());
 
   }
 
@@ -188,7 +196,7 @@ public class Main2Activity extends AppCompatActivity
 
   public void save(View view) {
     String issueDate = ((TextView) findViewById(R.id.showDate)).getText().toString();
-    PatientCardID patientCardID = new PatientCardID();
+    DataCardId patientCardID = new DataCardId();
     patientCardID.setIssueDate(issueDate);
 //    database.addPatientCardID(patientCardID);
   }

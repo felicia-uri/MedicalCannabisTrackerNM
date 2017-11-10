@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.fu.medicalcannabistrackernm.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.Main2Activity;
 import edu.cnm.deepdive.fu.medicalcannabistrackernm.R;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.database.DataCardId;
+import edu.cnm.deepdive.fu.medicalcannabistrackernm.database.sample.SampleDataProvider;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 
 /**
@@ -21,35 +30,21 @@ import edu.cnm.deepdive.fu.medicalcannabistrackernm.R;
  */
 public class PatientIDCard extends Fragment {
 
-  // TODO: Rename parameter arguments, choose names that match
-  // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-  private static final String ARG_PARAM1 = "param1";
-  private static final String ARG_PARAM2 = "param2";
-
-  // TODO: Rename and change types of parameters
-  private String mParam1;
-  private String mParam2;
 
   private OnFragmentInteractionListener mListener;
+  //TextView tvOut;
+  List<DataCardId> dataCardIdList = SampleDataProvider.dataCardList;
+  List<String> dataNames = new ArrayList<>();
 
   public PatientIDCard() {
     // Required empty public constructor
   }
 
-  /**
-   * Use this factory method to create a new instance of this fragment using the provided
-   * parameters.
-   *
-   * @param param1 Parameter 1.
-   * @param param2 Parameter 2.
-   * @return A new instance of fragment PatientIDCard.
-   */
+
   // TODO: Rename and change types and number of parameters
   public static PatientIDCard newInstance(String param1, String param2) {
     PatientIDCard fragment = new PatientIDCard();
     Bundle args = new Bundle();
-    args.putString(ARG_PARAM1, param1);
-    args.putString(ARG_PARAM2, param2);
     fragment.setArguments(args);
     return fragment;
   }
@@ -69,7 +64,38 @@ public class PatientIDCard extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_patient_idcard, container, false);
+    View inflate = inflater.inflate(R.layout.fragment_patient_idcard, container, false);
+
+//    DataCardId data = new DataCardId(null, "card ID", "date",
+//        "date", "date",
+//        "date");
+
+//    tvOut = (TextView) inflate.findViewById(R.id.data_out);
+//    tvOut.setText("");
+
+    //Sort alphabetically
+//    Collections.sort(dataCardIdList, new Comparator<DataCardId>() {
+//      @Override
+//      public int compare(DataCardId o1, DataCardId o2) {
+//        return o1.getCardHolderName().compareTo(o2.getCardHolderName());
+//      }
+//    });
+
+    for (DataCardId data : dataCardIdList) {
+      // tvOut.append(data.getCardHolderName() + "\n");
+      dataNames.add(data.getCardHolderName());
+    }
+    Collections.sort(dataNames);
+
+//    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+//        this,
+//    )
+
+
+    return inflate;
+
+
+
   }
 
   // TODO: Rename method, update argument and hook method into UI event
